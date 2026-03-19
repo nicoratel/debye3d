@@ -1,0 +1,93 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "debye3d"
+version = "0.1.0"
+description = "3D X-ray and electron scattering calculator using Debye equation"
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Nicolas Ratel-Ramond", email = "nicolas.ratel-ramond@insa-toulouse.fr"}
+]
+maintainers = [
+    {name = "Nicolas Ratel-Ramond", email = "nicolas.ratel-ramond@insa-toulouse.fr"}
+]
+keywords = ["scattering", "debye", "x-ray", "crystallography","saxs"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "numpy>=1.20.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.3.0",
+    "ase>=3.22.0",
+    "pyyaml>=5.4.0",
+    "tqdm>=4.60.0",
+    "pyFAI>=0.20.0",
+]
+
+[project.optional-dependencies]
+gpu = [
+    "torch>=1.9.0",
+]
+fast = [
+    "numba>=0.54.0",
+]
+
+full = [
+    "torch>=1.9.0",
+    "numba>=0.54.0",
+    "pyFAI>=0.20.0",
+    "debyecalculator>=1.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+]
+
+[project.urls]
+Homepage = "https://github.com/nicoratel/Debye3D"
+Documentation = "https://github.com/nicoratel/Debye3D"
+Repository = "https://github.com/nicoratel/Debye3D"
+"Bug Tracker" = "https://github.com/nicoratel/Debye3D/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+debye3d = ["*.yaml"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --cov=debye3d --cov-report=term-missing"
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
